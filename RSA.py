@@ -50,7 +50,6 @@ class RSA:
             return int("".join([str(ord(x) - 64) for x in m]))
 
         m = str_to_int(string)
-        print(m)
 
         if m < self.n:
             return pow(m, self.e, self.n)
