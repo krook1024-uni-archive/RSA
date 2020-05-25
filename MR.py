@@ -1,6 +1,11 @@
 from random import randint
 
+# kicsi számok, melyekről látszik, hogy prím-e vagy sem (1-6)
+SMALL_PRIMES = [False, False, True, True, False, True]
+
+
 class MR:
+
     @staticmethod
     def test(n, k=3):
         """
@@ -10,8 +15,8 @@ class MR:
         :param k a tesztek száma
         :return True, ha lehetséges, hogy n prím, False ha n biztosan összetett
         """
-        if n < 6:  # 0-tól nagyobb és 6-nál kisebb esetekre egy shortcut
-            return [False, False, True, True, False, True][n]
+        if 0 < n < len(SMALL_PRIMES):  # 0-tól nagyobb és 6-nál kisebb esetekre egy shortcut
+            return SMALL_PRIMES[n]
         elif n % 2 == 0:  # n páros
             return False
         else:
@@ -19,7 +24,7 @@ class MR:
 
             # n - 1 = 2 ^ s * d
             while d & 1 == 0:
-                s += 1
+                s = s + 1
                 d >>= 1
 
             # k-szor választunk tetszőleges a-t, a < n
@@ -34,6 +39,6 @@ class MR:
                         elif x == n - 1:
                             a = 0
                             break
-                    if a != 0:
+                    if a:
                         return False  # ha idáig eljut, összetett
             return True
