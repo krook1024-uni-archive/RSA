@@ -3,6 +3,7 @@ from random import randint
 from Math import Math
 from MR import MR
 
+
 class RSA:
     def __init__(self):
         self.p = 3
@@ -60,6 +61,7 @@ class RSA:
         :param string: a titkos üzenet
         :return:
         """
+
         def str_to_int(m):
             return int("".join([str(ord(x) - 64) for x in m]))
 
@@ -76,6 +78,7 @@ class RSA:
         :param ciphertext: a titkosított üzenet
         :return: a tiszta üzenet
         """
+
         def int_to_str(c):
             cstr = str(c)
             return "".join([chr(int(cstr[i:i + 2]) + 64) for i in range(0, len(cstr), 2)])
@@ -94,6 +97,7 @@ class RSA:
 
             if MR.test(p):
                 return p
+
 
 def main():
     for _ in range(30):
