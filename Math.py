@@ -1,3 +1,6 @@
+"""
+Segédosztály matematikai feladatok elvégézésére.
+"""
 class Math:
     @staticmethod
     def gcde(a, b):

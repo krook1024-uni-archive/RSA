@@ -1,6 +1,5 @@
 from random import randint
 
-
 class MR:
     @staticmethod
     def test(n, k=3):
