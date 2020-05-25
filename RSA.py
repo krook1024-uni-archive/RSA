@@ -1,6 +1,7 @@
 from math import gcd
 from random import randint
-
+from Math import Math
+from MR import MR
 
 class RSA:
     def __init__(self):
@@ -48,7 +49,7 @@ class RSA:
                 self.e = e
                 break
 
-        _, self.d, _ = RSA.gcde(self.e, self.phin)
+        _, self.d, _ = Math.gcde(self.e, self.phin)
 
         while not 1 < self.d < self.phin:
             self.d += self.phin
@@ -91,61 +92,8 @@ class RSA:
         while True:
             p = randint(10000000, 100000000)
 
-            if RSA.miller_rabin_test(p):
+            if MR.test(p):
                 return p
-
-    @staticmethod
-    def gcde(a, b):
-        """
-        A kiterjesztett euklideszi algoritmus.
-        :param a: az egyik szám
-        :param b:  a másik szám
-        :return: gcd(a, b), x, y
-        """
-        x0, x1, y0, y1 = 0, 1, 1, 0
-        while a != 0:
-            (q, a), b = divmod(b, a), a
-            y0, y1 = y1, y0 - q * y1
-            x0, x1 = x1, x0 - q * x1
-        return b, x0, y0
-
-    @staticmethod
-    def miller_rabin_test(n, k=3):
-        """
-        Megvizsgál egy számot összetettsége szempontjából.
-
-        :param n a szám
-        :param k a tesztek száma
-        :return True, ha lehetséges, hogy n prím, False ha n biztosan összetett
-        """
-        if n < 6:  # 0-tól nagyobb és 6-nál kisebb esetekre egy shortcut
-            return [False, False, True, True, False, True][n]
-        elif n % 2 == 0: # n páros
-            return False
-        else:
-            s, d = 0, n - 1
-
-            # n - 1 = 2 ^ s * d
-            while d & 1 == 0:
-                s += 1
-                d >>= 1
-
-            # k-szor választunk tetszőleges a-t, a < n
-            for a in [randint(2, n-2) for _ in range(k)]:
-                x = pow(a, d, n)
-                if x != 1 and x + 1 != n:
-                    for r in range(s): # 0 -> s-1
-                        x = pow(x, 2, n)
-
-                        if x == 1:
-                            return False # biztosan összetett
-                        elif x == n - 1:
-                            a = 0
-                            break
-                    if a != 0:
-                        return False # ha idáig eljut, összetett
-            return True
-
 
 def main():
     for _ in range(30):
